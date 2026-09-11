@@ -7,6 +7,33 @@ The plugin bundles:
 - the QuickS3 remote MCP server (`https://quicks3.com/mcp`, Streamable HTTP with OAuth)
 - the `quicks3-operator` skill, which teaches the agent to list narrowly, download through single-use links, and upload without overwriting by default
 
+## Install in Claude Code
+
+In Claude Code, run:
+
+```
+/plugin marketplace add QuickS3-com/skill
+/plugin install quicks3@quicks3
+```
+
+Or from a shell:
+
+```bash
+claude plugin marketplace add QuickS3-com/skill
+```
+
+```bash
+claude plugin install quicks3@quicks3
+```
+
+Run `/mcp` in Claude Code and choose QuickS3 to sign in. Choose the roles to delegate; you can revoke the grant at any time in QuickS3.
+
+## Claude.ai and Claude Desktop
+
+1. In Claude, open **Settings → Connectors** and choose **Add custom connector**.
+2. Enter `https://quicks3.com/mcp` as the URL and complete the QuickS3 sign-in.
+3. Optional: to add the skill, zip the [`quicks3-operator`](plugins/quicks3/skills/quicks3-operator) folder and upload it in **Settings → Capabilities → Skills**.
+
 ## Install in Codex
 
 ```bash

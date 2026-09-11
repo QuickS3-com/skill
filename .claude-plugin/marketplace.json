@@ -1,0 +1,16 @@
+{
+  "name": "quicks3",
+  "description": "QuickS3 plugin for browsing and transferring object-storage files with delegated access.",
+  "owner": {
+    "name": "QuickS3",
+    "url": "https://quicks3.com"
+  },
+  "plugins": [
+    {
+      "name": "quicks3",
+      "source": "./plugins/quicks3",
+      "description": "Browse and transfer files safely through the QuickS3 MCP server.",
+      "category": "productivity"
+    }
+  ]
+}

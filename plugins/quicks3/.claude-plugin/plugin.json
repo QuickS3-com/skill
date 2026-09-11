@@ -1,0 +1,13 @@
+{
+  "name": "quicks3",
+  "version": "0.1.0",
+  "description": "Browse and transfer files safely through the QuickS3 MCP server.",
+  "author": {
+    "name": "QuickS3",
+    "url": "https://quicks3.com"
+  },
+  "homepage": "https://github.com/QuickS3-com/skill",
+  "repository": "https://github.com/QuickS3-com/skill",
+  "license": "MIT",
+  "keywords": ["s3", "object-storage", "mcp", "files"]
+}
