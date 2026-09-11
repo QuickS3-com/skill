@@ -8,6 +8,7 @@
   },
   "homepage": "https://github.com/QuickS3-com/skill",
   "repository": "https://github.com/QuickS3-com/skill",
+  "license": "MIT",
   "keywords": ["s3", "object-storage", "mcp", "files"],
   "skills": "./skills/",
   "interface": {
