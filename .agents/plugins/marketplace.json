@@ -1,0 +1,20 @@
+{
+  "name": "quicks3",
+  "interface": {
+    "displayName": "QuickS3"
+  },
+  "plugins": [
+    {
+      "name": "quicks3",
+      "source": {
+        "source": "local",
+        "path": "./plugins/quicks3"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

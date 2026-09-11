@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "QuickS3": {
+      "type": "http",
+      "url": "https://quicks3.com/mcp"
+    }
+  }
+}
