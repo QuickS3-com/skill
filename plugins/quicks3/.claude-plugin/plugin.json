@@ -1,13 +1,13 @@
 {
   "name": "quicks3",
-  "version": "0.2.0",
-  "description": "Browse, transfer, and share files safely through the QuickS3 MCP server.",
+  "version": "0.2.1",
+  "description": "Browse, transfer, and share files safely through the quickS3 MCP server.",
   "author": {
-    "name": "QuickS3",
+    "name": "quickS3",
     "url": "https://quicks3.com"
   },
   "homepage": "https://github.com/QuickS3-com/skill",
   "repository": "https://github.com/QuickS3-com/skill",
   "license": "MIT",
-  "keywords": ["s3", "object-storage", "mcp", "files"]
+  "keywords": ["s3", "object-storage", "mcp", "files", "file-sharing", "r2", "backblaze-b2", "wasabi", "digitalocean-spaces", "minio", "azure-blob-storage"]
 }

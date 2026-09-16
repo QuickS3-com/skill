@@ -1,12 +1,12 @@
 interface:
-  display_name: "QuickS3 Operator"
-  short_description: "Browse, transfer, and share QuickS3 files safely"
+  display_name: "quickS3 Operator"
+  short_description: "Browse, transfer, and share quickS3 files safely"
   default_prompt: "Use $quicks3-operator to list the folders I can access without recursing into them."
 dependencies:
   tools:
     - type: "mcp"
       value: "QuickS3"
-      description: "QuickS3 object-storage access"
+      description: "quickS3 object-storage access"
       transport: "streamable_http"
       url: "https://quicks3.com/mcp"
 policy:

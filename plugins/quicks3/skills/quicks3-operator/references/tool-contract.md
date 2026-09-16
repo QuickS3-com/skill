@@ -1,13 +1,13 @@
-# QuickS3 MCP Tool Contract
+# quickS3 MCP Tool Contract
 
-Use this reference when constructing tool calls, interpreting structured results, or troubleshooting a failed QuickS3 operation.
+Use this reference when constructing tool calls, interpreting structured results, or troubleshooting a failed quickS3 operation.
 
 ## Server
 
 - MCP server identifier: `QuickS3`
 - Transport: Streamable HTTP
 - Endpoint: `https://quicks3.com/mcp`
-- Authentication: Browser-based OAuth with a QuickS3 access grant
+- Authentication: Browser-based OAuth with a quickS3 access grant
 
 The access grant delegates selected roles the user already holds. It does not expose provider credentials. Role removal, permission changes, membership changes, grant revocation, and grant expiry affect subsequent calls.
 
@@ -90,7 +90,7 @@ Structured result:
 }
 ```
 
-QuickS3 always requests provider listings with delimiter `/`, so results describe only the immediate level. It merges provider common prefixes into `objects`, removes the listed folder's own marker, filters denied keys, and can append synthetic prefix entries that lead to deeper allowed scopes.
+quickS3 always requests provider listings with delimiter `/`, so results describe only the immediate level. It merges provider common prefixes into `objects`, removes the listed folder's own marker, filters denied keys, and can append synthetic prefix entries that lead to deeper allowed scopes.
 
 Folder keys are full prefixes, not names relative to the requested prefix. Preserve the full key in subsequent calls. Use a trailing slash to list inside a folder.
 
@@ -108,7 +108,7 @@ Read-only with respect to storage. Input:
 }
 ```
 
-The content includes a `resource_link` to a QuickS3 transfer URL. Structured metadata contains:
+The content includes a `resource_link` to a quickS3 transfer URL. Structured metadata contains:
 
 ```json
 {
@@ -117,7 +117,7 @@ The content includes a `resource_link` to a QuickS3 transfer URL. Structured met
 }
 ```
 
-The QuickS3 transfer link lasts five minutes and permits one successful redemption. Redemption rechecks authorization, creates a provider URL lasting about one minute, consumes the handle, and redirects to the provider. Follow redirects. A fresh link is required after successful redemption.
+The quickS3 transfer link lasts five minutes and permits one successful redemption. Redemption rechecks authorization, creates a provider URL lasting about one minute, consumes the handle, and redirects to the provider. Follow redirects. A fresh link is required after successful redemption.
 
 Common redemption responses:
 
@@ -153,9 +153,9 @@ The text content contains the share URL and its expiry. Structured result:
 }
 ```
 
-This is the same link the QuickS3 web app's Share dialog creates. Anyone who has it can download the file, any number of times, until `expiresAt`. The expiry never goes past the access grant's expiry; `limitedByGrant` is true when it was shortened for that reason.
+This is the same link the quickS3 web app's Share dialog creates. Anyone who has it can download the file, any number of times, until `expiresAt`. The expiry never goes past the access grant's expiry; `limitedByGrant` is true when it was shortened for that reason.
 
-Each time the link is opened, QuickS3 rechecks the grant it was created under and the object's read permission, then redirects to a fresh provider URL. Revoking the grant, the grant expiring, removing a role, or adding a deny disables the link. Opening a disabled link shows a "Link unavailable" page (403); an expired link shows "Link expired" (410).
+Each time the link is opened, quickS3 rechecks the grant it was created under and the object's read permission, then redirects to a fresh provider URL. Revoking the grant, the grant expiring, removing a role, or adding a deny disables the link. Opening a disabled link shows a "Link unavailable" page (403); an expired link shows "Link expired" (410).
 
 ## `create_upload_url`
 
@@ -188,7 +188,7 @@ Structured result:
 
 The URL lasts 15 minutes. Send the bytes directly to the provider with `PUT`. Include every returned header; Azure Blob uploads currently require `x-ms-blob-type: BlockBlob`. Use a file-backed, known-length body. The URL and any provider error body may contain sensitive details and should not be repeated to the user.
 
-With `overwrite: false`, QuickS3 checks for an existing object before signing. If the provider refuses that check with 403 (for example, a write-only role), QuickS3 proceeds without it, so an existing object can still be replaced. When replacement matters and the connection has `canRead: false`, tell the user the check may be skipped.
+With `overwrite: false`, quickS3 checks for an existing object before signing. If the provider refuses that check with 403 (for example, a write-only role), quickS3 proceeds without it, so an existing object can still be replaced. When replacement matters and the connection has `canRead: false`, tell the user the check may be skipped.
 
 The current MCP server has no multipart tools registered. If a file exceeds `maxBytes`, report that limitation rather than attempting nonexistent tools.
 
@@ -205,4 +205,4 @@ Tool failures set `isError: true` and include a short message. Respond according
 - Invalid expiry: `expiresInSeconds` must be from 300 to 2592000; correct the value rather than retrying.
 - Links temporarily unavailable: server public-origin configuration is unavailable, or no unique share code could be generated; retrying the same call repeatedly is not useful.
 
-Provider failures are intentionally summarized. Do not ask QuickS3 to reveal credentials, endpoints, signatures, stack traces, or raw provider error bodies.
+Provider failures are intentionally summarized. Do not ask quickS3 to reveal credentials, endpoints, signatures, stack traces, or raw provider error bodies.

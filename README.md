@@ -1,10 +1,19 @@
-# QuickS3 agent plugin
+# quickS3 agent plugin
 
-Lets coding agents browse, transfer, and share files through [QuickS3](https://quicks3.com). Agents act only with the QuickS3 roles you delegate during OAuth consent, and file bytes go directly between the agent and your storage provider.
+Lets coding agents browse, transfer, and share files through [quickS3](https://quicks3.com). Agents act only with the quickS3 roles you delegate during OAuth consent, and file bytes go directly between the agent and your storage provider.
+
+This repository contains the client plugin and skill. The MCP server itself is hosted by quickS3 at `https://quicks3.com/mcp`; its source is not in this repository.
+
+## Requirements
+
+- A quickS3 organization with at least one storage connection. [Sign up at quicks3.com](https://quicks3.com).
+- A quickS3 role that gives you access to the buckets or folders the agent should use.
+
+Supported providers: AWS S3, Cloudflare R2, Backblaze B2, DigitalOcean Spaces, Wasabi, MinIO, Azure Blob Storage, and other S3-compatible services.
 
 The plugin bundles:
 
-- the QuickS3 remote MCP server (`https://quicks3.com/mcp`, Streamable HTTP with OAuth)
+- the quickS3 hosted MCP server (`https://quicks3.com/mcp`, Streamable HTTP with OAuth)
 - the `quicks3-operator` skill, which teaches the agent to list narrowly, download through single-use links, share files only when asked, and upload without overwriting by default
 
 ## Install in Claude Code
@@ -26,13 +35,19 @@ claude plugin marketplace add QuickS3-com/skill
 claude plugin install quicks3@quicks3
 ```
 
-Run `/mcp` in Claude Code and choose QuickS3 to sign in. Choose the roles to delegate; you can revoke the grant at any time in QuickS3.
+Run `/mcp` in Claude Code and choose `QuickS3` to sign in. Choose the roles to delegate; you can revoke the grant at any time in quickS3.
 
 ## Claude.ai and Claude Desktop
 
 1. In Claude, open **Settings → Connectors** and choose **Add custom connector**.
-2. Enter `https://quicks3.com/mcp` as the URL and complete the QuickS3 sign-in.
+2. Enter `https://quicks3.com/mcp` as the URL and complete the quickS3 sign-in.
 3. Optional: to add the skill, zip the [`quicks3-operator`](plugins/quicks3/skills/quicks3-operator) folder and upload it in **Settings → Capabilities → Skills**.
+
+## ChatGPT
+
+1. In ChatGPT's settings, add a custom connector.
+2. Enter `https://quicks3.com/mcp` as the URL and choose OAuth as the authentication.
+3. ChatGPT opens quickS3 so you can approve the connector and choose its roles.
 
 ## Install in Codex
 
@@ -44,7 +59,7 @@ codex plugin marketplace add https://github.com/QuickS3-com/skill.git
 codex plugin add quicks3@quicks3
 ```
 
-Codex opens a browser for QuickS3 sign-in. Choose the roles to delegate; you can revoke the grant at any time in QuickS3.
+Codex opens a browser for quickS3 sign-in. Choose the roles to delegate; you can revoke the grant at any time in quickS3.
 
 ## Other MCP clients
 
@@ -62,3 +77,9 @@ Any client that supports remote MCP servers with OAuth can connect to `https://q
 | `create_upload_url` | Presigned `PUT` URL, valid 15 minutes, no overwrite by default |
 
 See [`tool-contract.md`](plugins/quicks3/skills/quicks3-operator/references/tool-contract.md) for schemas and errors.
+
+## Learn more
+
+- [Setup guide](https://quicks3.com/s3-mcp-server/)
+- [Security model](https://quicks3.com/docs/security/model/)
+- [Privacy policy](https://quicks3.com/privacy/)

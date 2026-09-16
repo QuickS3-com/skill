@@ -1,7 +1,7 @@
 {
   "name": "quicks3",
   "interface": {
-    "displayName": "QuickS3"
+    "displayName": "quickS3"
   },
   "plugins": [
     {

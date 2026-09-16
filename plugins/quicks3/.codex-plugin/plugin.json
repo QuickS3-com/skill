@@ -1,31 +1,31 @@
 {
   "name": "quicks3",
-  "version": "0.2.0",
-  "description": "Browse, transfer, and share files through the QuickS3 MCP server",
+  "version": "0.2.1",
+  "description": "Browse, transfer, and share files through the quickS3 MCP server",
   "author": {
-    "name": "QuickS3",
+    "name": "quickS3",
     "url": "https://quicks3.com"
   },
   "homepage": "https://github.com/QuickS3-com/skill",
   "repository": "https://github.com/QuickS3-com/skill",
   "license": "MIT",
-  "keywords": ["s3", "object-storage", "mcp", "files"],
+  "keywords": ["s3", "object-storage", "mcp", "files", "file-sharing", "r2", "backblaze-b2", "wasabi", "digitalocean-spaces", "minio", "azure-blob-storage"],
   "skills": "./skills/",
   "interface": {
-    "displayName": "QuickS3",
+    "displayName": "quickS3",
     "shortDescription": "Safely browse, transfer, and share object-storage files.",
-    "longDescription": "Connect Codex to QuickS3 to list permitted storage connections, buckets, folders, and objects, to create controlled upload and download transfers, and to create expiring share links using delegated QuickS3 roles.",
-    "developerName": "QuickS3",
+    "longDescription": "Connect Codex to quickS3 to list permitted storage connections, buckets, folders, and objects, to create controlled upload and download transfers, and to create expiring share links using delegated quickS3 roles.",
+    "developerName": "quickS3",
     "category": "Productivity",
     "capabilities": ["Read", "Write"],
     "websiteURL": "https://quicks3.com",
     "privacyPolicyURL": "https://quicks3.com/privacy/",
     "termsOfServiceURL": "https://quicks3.com/terms/",
     "defaultPrompt": [
-      "List the folders I can access in QuickS3.",
-      "Show me the files in a QuickS3 folder.",
-      "Upload a file to QuickS3 without overwriting anything.",
-      "Create a QuickS3 share link for a file that lasts 7 days."
+      "List the folders I can access in quickS3.",
+      "Show me the files in a quickS3 folder.",
+      "Upload a file to quickS3 without overwriting anything.",
+      "Create a quickS3 share link for a file that lasts 7 days."
     ],
     "brandColor": "#6E0F2B",
     "composerIcon": "./assets/icon.png",
