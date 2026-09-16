@@ -1,7 +1,7 @@
 {
   "name": "quicks3",
-  "version": "0.1.0",
-  "description": "Browse and transfer files through the QuickS3 MCP server",
+  "version": "0.2.0",
+  "description": "Browse, transfer, and share files through the QuickS3 MCP server",
   "author": {
     "name": "QuickS3",
     "url": "https://quicks3.com"
@@ -13,8 +13,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "QuickS3",
-    "shortDescription": "Safely browse and transfer object-storage files.",
-    "longDescription": "Connect Codex to QuickS3 to list permitted storage connections, buckets, folders, and objects, and to create controlled upload and download transfers using delegated QuickS3 roles.",
+    "shortDescription": "Safely browse, transfer, and share object-storage files.",
+    "longDescription": "Connect Codex to QuickS3 to list permitted storage connections, buckets, folders, and objects, to create controlled upload and download transfers, and to create expiring share links using delegated QuickS3 roles.",
     "developerName": "QuickS3",
     "category": "Productivity",
     "capabilities": ["Read", "Write"],
@@ -24,7 +24,8 @@
     "defaultPrompt": [
       "List the folders I can access in QuickS3.",
       "Show me the files in a QuickS3 folder.",
-      "Upload a file to QuickS3 without overwriting anything."
+      "Upload a file to QuickS3 without overwriting anything.",
+      "Create a QuickS3 share link for a file that lasts 7 days."
     ],
     "brandColor": "#6E0F2B",
     "composerIcon": "./assets/icon.png",

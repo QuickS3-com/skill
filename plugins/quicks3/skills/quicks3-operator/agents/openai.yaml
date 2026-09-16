@@ -1,6 +1,6 @@
 interface:
   display_name: "QuickS3 Operator"
-  short_description: "Browse and transfer QuickS3 files safely"
+  short_description: "Browse, transfer, and share QuickS3 files safely"
   default_prompt: "Use $quicks3-operator to list the folders I can access without recursing into them."
 dependencies:
   tools:

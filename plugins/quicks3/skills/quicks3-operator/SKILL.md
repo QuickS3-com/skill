@@ -1,6 +1,6 @@
 ---
 name: quicks3-operator
-description: Browse and transfer files through the QuickS3 MCP server. Use when a user asks to inspect QuickS3 connections, buckets, folders, or objects, or to upload or download an object through QuickS3.
+description: Browse, transfer, and share files through the QuickS3 MCP server. Use when a user asks to inspect QuickS3 connections, buckets, folders, or objects, to upload or download an object through QuickS3, or to create a share link so someone else can download a file.
 ---
 
 # QuickS3 Operator
@@ -14,7 +14,7 @@ QuickS3 delegates only the access selected during OAuth consent. Treat connectio
 1. Call `list_connections` once when the connection ID is unknown. Reuse its result during the task.
 2. Call `list_buckets` only when the bucket is unknown or the user asks for buckets.
 3. Call `list_objects` with the chosen connection, bucket, and folder prefix.
-4. Make transfer calls only when the user asks to upload, download, or read an object's contents.
+4. Make transfer calls only when the user asks to upload, download, or read an object's contents. Create share links only when the user asks to share a file with someone.
 
 When several connections or buckets plausibly match the request, present the short choices or ask which one the user means. Do not guess across similarly named storage locations.
 
@@ -47,6 +47,16 @@ Return concise results as they arrive. Do not perform redundant verification lis
 - For “read this file,” download to an appropriate temporary or user-requested path and then read the local file with the correct file-handling tool.
 - If a redeemed link must be retried, request a fresh link. Do not repeatedly call the used URL.
 - Do not claim the file is missing solely because transfer redemption failed; distinguish link expiry/use, permission changes, signing failures, and transport failures when the response permits it.
+
+## Share a file with someone
+
+`create_share_link` creates a public link: anyone who has it can download the file without a QuickS3 account until it expires. Use it only when the user asks to share or send a file to someone. To fetch a file yourself, use `create_download_link` instead.
+
+- Set `expiresInSeconds` to the lifetime the user asked for, from 300 (5 minutes) to 2592000 (30 days). Convert phrases such as "for a week" to seconds (604800). If the user gave no duration, omit it to get the 24-hour default and say so.
+- Give the returned `shareUrl` to the user; unlike transfer URLs, it is meant to be passed on. Tell them the exact `expiresAt`.
+- If `limitedByGrant` is true, tell the user the link expires sooner than requested because the QuickS3 access grant expires then.
+- The link stops working if the user revokes the grant or loses read access to the file. Do not create a new link to work around a refusal.
+- Do not open the share link yourself to check that it works.
 
 ## Upload safely
 

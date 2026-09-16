@@ -1,11 +1,11 @@
 # QuickS3 agent plugin
 
-Lets coding agents browse and transfer files through [QuickS3](https://quicks3.com). Agents act only with the QuickS3 roles you delegate during OAuth consent, and file bytes go directly between the agent and your storage provider.
+Lets coding agents browse, transfer, and share files through [QuickS3](https://quicks3.com). Agents act only with the QuickS3 roles you delegate during OAuth consent, and file bytes go directly between the agent and your storage provider.
 
 The plugin bundles:
 
 - the QuickS3 remote MCP server (`https://quicks3.com/mcp`, Streamable HTTP with OAuth)
-- the `quicks3-operator` skill, which teaches the agent to list narrowly, download through single-use links, and upload without overwriting by default
+- the `quicks3-operator` skill, which teaches the agent to list narrowly, download through single-use links, share files only when asked, and upload without overwriting by default
 
 ## Install in Claude Code
 
@@ -58,6 +58,7 @@ Any client that supports remote MCP servers with OAuth can connect to `https://q
 | `list_buckets` | Visible buckets of one connection |
 | `list_objects` | One folder level, paginated |
 | `create_download_link` | Single-use link, valid 5 minutes |
+| `create_share_link` | Public share link for someone else, valid 5 minutes to 30 days (default 24 hours) |
 | `create_upload_url` | Presigned `PUT` URL, valid 15 minutes, no overwrite by default |
 
 See [`tool-contract.md`](plugins/quicks3/skills/quicks3-operator/references/tool-contract.md) for schemas and errors.

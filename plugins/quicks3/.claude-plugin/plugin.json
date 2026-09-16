@@ -1,7 +1,7 @@
 {
   "name": "quicks3",
-  "version": "0.1.0",
-  "description": "Browse and transfer files safely through the QuickS3 MCP server.",
+  "version": "0.2.0",
+  "description": "Browse, transfer, and share files safely through the QuickS3 MCP server.",
   "author": {
     "name": "QuickS3",
     "url": "https://quicks3.com"

@@ -127,6 +127,36 @@ Common redemption responses:
 - `410 signing_failed`: the provider URL could not be created; this failure does not consume the handle.
 - Public `404 not_found`: malformed routing or an internal transfer lookup failure was deliberately concealed.
 
+## `create_share_link`
+
+Creates public external state (not read-only). Input:
+
+```json
+{
+  "connectionId": "conn_...",
+  "bucket": "documents",
+  "key": "approved/report.pdf",
+  "expiresInSeconds": 604800
+}
+```
+
+`expiresInSeconds` is optional: an integer from 300 (5 minutes) to 2592000 (30 days). The default is 86400 (24 hours). The grant must allow reading the object.
+
+The text content contains the share URL and its expiry. Structured result:
+
+```json
+{
+  "shareUrl": "https://quicks3.com/shrt/<code>",
+  "shareLinkId": "3f0c...",
+  "expiresAt": "2026-09-18T08:00:00.000Z",
+  "limitedByGrant": false
+}
+```
+
+This is the same link the QuickS3 web app's Share dialog creates. Anyone who has it can download the file, any number of times, until `expiresAt`. The expiry never goes past the access grant's expiry; `limitedByGrant` is true when it was shortened for that reason.
+
+Each time the link is opened, QuickS3 rechecks the grant it was created under and the object's read permission, then redirects to a fresh provider URL. Revoking the grant, the grant expiring, removing a role, or adding a deny disables the link. Opening a disabled link shows a "Link unavailable" page (403); an expired link shows "Link expired" (410).
+
 ## `create_upload_url`
 
 Write operation. Input:
@@ -172,6 +202,7 @@ Tool failures set `isError: true` and include a short message. Respond according
 - Invalid upload size: measure the file again; do not estimate.
 - Object exists: keep `overwrite: false` until the user authorizes replacement.
 - Upload too large: no multipart MCP tools are currently available.
-- Download links temporarily unavailable: server public-origin configuration is unavailable; retrying the same call repeatedly is not useful.
+- Invalid expiry: `expiresInSeconds` must be from 300 to 2592000; correct the value rather than retrying.
+- Links temporarily unavailable: server public-origin configuration is unavailable, or no unique share code could be generated; retrying the same call repeatedly is not useful.
 
 Provider failures are intentionally summarized. Do not ask QuickS3 to reveal credentials, endpoints, signatures, stack traces, or raw provider error bodies.
