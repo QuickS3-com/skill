@@ -93,8 +93,8 @@ Any client that supports remote MCP servers with OAuth can connect to `https://q
 
 | Tool | Effect |
 | --- | --- |
-| `list_connections` | Storage connections the grant can see |
-| `list_buckets` | Visible buckets of one connection |
+| `list_connections` | Storage connections the grant can see, with their buckets |
+| `list_buckets` | Refreshes the visible buckets of one connection |
 | `list_objects` | One folder level, paginated |
 | `create_download_link` | Single-use link, valid 5 minutes |
 | `create_share_link` | Public share link for someone else, valid 5 minutes to 30 days (default 24 hours) |

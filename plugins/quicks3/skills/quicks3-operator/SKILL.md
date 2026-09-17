@@ -11,10 +11,11 @@ quickS3 delegates only the access selected during OAuth consent. Treat connectio
 
 ## Choose the narrowest operation
 
-1. Call `list_connections` once when the connection ID is unknown. Reuse its result during the task.
-2. Call `list_buckets` only when the bucket is unknown or the user asks for buckets.
-3. Call `list_objects` with the chosen connection, bucket, and folder prefix.
-4. Make transfer calls only when the user asks to upload, download, or read an object's contents. Create share links only when the user asks to share a file with someone.
+1. Call `list_connections` once when the connection ID or bucket is unknown. It returns each connection's buckets too, so one call is enough to pick both. Reuse its result during the task.
+2. Pass `includeBuckets: false` only when you need connection names alone, for example when the user asks which connections exist.
+3. Call `list_buckets` only to refresh one connection, or to retry one whose entry came back with `bucketsError`.
+4. Call `list_objects` with the chosen connection, bucket, and folder prefix.
+5. Make transfer calls only when the user asks to upload, download, or read an object's contents. Create share links only when the user asks to share a file with someone.
 
 When several connections or buckets plausibly match the request, present the short choices or ask which one the user means. Do not guess across similarly named storage locations.
 

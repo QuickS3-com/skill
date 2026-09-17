@@ -2,6 +2,8 @@
 
 Use this reference when constructing tool calls, interpreting structured results, or troubleshooting a failed quickS3 operation.
 
+Every successful tool result carries its data twice: as `structuredContent`, and as the same JSON in a text block (the last line of the text when a usage hint precedes it). Read whichever your client provides; they are identical.
+
 ## Server
 
 - MCP server identifier: `QuickS3`
@@ -16,8 +18,10 @@ The access grant delegates selected roles the user already holds. It does not ex
 Read-only. Input:
 
 ```json
-{}
+{ "includeBuckets": true }
 ```
+
+`includeBuckets` is optional and defaults to `true`. Set it to `false` to skip contacting the storage providers when only connection names are needed.
 
 Structured result:
 
@@ -29,13 +33,24 @@ Structured result:
       "name": "Customer files",
       "provider": "r2",
       "canRead": true,
-      "canWrite": false
+      "canWrite": false,
+      "buckets": ["documents", "media"]
+    },
+    {
+      "id": "conn_...",
+      "name": "Archive",
+      "provider": "wasabi",
+      "canRead": true,
+      "canWrite": true,
+      "bucketsError": "The storage provider did not answer in time."
     }
   ]
 }
 ```
 
 Only connections with an effective read or write allowance somewhere are returned. Reuse the ID; later tools do not accept the display name in its place.
+
+Each connection carries either `buckets` (same filtering as `list_buckets`) or `bucketsError` when its provider failed or took longer than about 8 seconds. One failing connection never fails the whole call. Retry a failed one with `list_buckets` if its buckets are needed. With `includeBuckets: false`, neither field is present.
 
 ## `list_buckets`
 
@@ -51,7 +66,7 @@ Structured result:
 { "buckets": ["documents", "media"] }
 ```
 
-The current implementation returns bucket names as strings. Only visible buckets allowed by both the connection restriction and delegated permissions are returned. An empty array is a successful result.
+`list_connections` already includes this list for every connection; call this tool to refresh one connection or retry one that reported `bucketsError`. The current implementation returns bucket names as strings. Only visible buckets allowed by both the connection restriction and delegated permissions are returned. An empty array is a successful result.
 
 ## `list_objects`
 
@@ -108,10 +123,11 @@ Read-only with respect to storage. Input:
 }
 ```
 
-The content includes a `resource_link` to a quickS3 transfer URL. Structured metadata contains:
+The content includes a `resource_link` to a quickS3 transfer URL. Structured result:
 
 ```json
 {
+  "url": "https://quicks3.com/...",
   "transferId": "xfer_...",
   "expiresAt": "2026-09-11T08:05:00.000Z"
 }
@@ -142,7 +158,7 @@ Creates public external state (not read-only). Input:
 
 `expiresInSeconds` is optional: an integer from 300 (5 minutes) to 2592000 (30 days). The default is 86400 (24 hours). The grant must allow reading the object.
 
-The text content contains the share URL and its expiry. Structured result:
+Structured result:
 
 ```json
 {
