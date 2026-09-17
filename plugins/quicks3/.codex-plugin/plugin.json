@@ -9,7 +9,7 @@
   "homepage": "https://github.com/QuickS3-com/skill",
   "repository": "https://github.com/QuickS3-com/skill",
   "license": "MIT",
-  "keywords": ["s3", "object-storage", "mcp", "files", "file-sharing", "r2", "backblaze-b2", "wasabi", "digitalocean-spaces", "minio", "azure-blob-storage"],
+  "keywords": ["s3", "object-storage", "mcp", "files", "file-sharing", "r2", "google-cloud-storage", "backblaze-b2", "wasabi", "digitalocean-spaces", "minio", "azure-blob-storage"],
   "skills": "./skills/",
   "interface": {
     "displayName": "quickS3",
